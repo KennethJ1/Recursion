@@ -1,11 +1,6 @@
-/**
- * The `Assign7` class demonstrates the printing of multiple triangles using recursion.
- * The triangles are printed to standard output, each of a given size. The number of triangles
- * printed is specified by the `size` parameter. The triangles are made out of asterisks, and
- * each line of a triangle ends with a newline character ("\n"). There is a single space
- * between each asterisk, and there are no spaces at the end of any line.
- */
 public class Assign7 {
+
+    private static int originalSize; // Class-level variable to store the original size
 
     /**
      * The main method serves as the entry point of the program. It demonstrates the
@@ -20,20 +15,29 @@ public class Assign7 {
     /**
      * This method prints multiple triangles using recursion. It takes a `size` parameter,
      * representing the number of lines in each triangle and the number of triangles to be printed.
-     * The method calls `printOneTriangle` to print a single triangle, followed by a newline, and
-     * then recursively calls itself to print the remaining triangles.
+     * The method initializes the `originalSize` variable and then calls the helper method
+     * `printTrianglesRecursive` to handle the recursion with the original size.
      *
      * @param size The number of lines in each triangle and the number of triangles to be printed.
      */
     public static void printTriangles(int size) {
-        int i = size;
-        if (i > 0) {
-            printOneTriangle(size, size);
-            System.out.println();
-            printTriangles(size);
-
+        originalSize = size;
+        if (size > 0) {
+            printTrianglesRecursive(size);
         }
-        i--;
+    }
+
+    /**
+     * Helper method for printTriangles to handle recursion with the original size.
+     *
+     * @param currentSize The current size of the triangle to be printed.
+     */
+    private static void printTrianglesRecursive(int currentSize) {
+        if (currentSize > 0) {
+            printOneTriangle(originalSize, originalSize);
+            System.out.println();  // add a newline after printing a triangle
+            printTrianglesRecursive(currentSize - 1);
+        }
     }
 
     /**
@@ -51,7 +55,6 @@ public class Assign7 {
         printSpaces(i - 1);
         printChar(size - i + 1);
         System.out.println("");
-
         printOneTriangle(i - 1, size);
     }
 
