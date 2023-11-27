@@ -9,7 +9,9 @@ public class Assign7 {
      * @param args The command-line arguments (not used in this program).
      */
     public static void main(String[] args) {
-        printTriangles(3);
+        //printTriangles(12);
+        int[] myArray = {1, 3, 4, 5, 6, 7, 9};
+        oddBeforeEven(myArray);
     }
 
     /**
@@ -87,4 +89,44 @@ public class Assign7 {
 
         printChar(numOfChar - 1);
     }
+    
+
+    public static void oddBeforeEven(int[] anArray) {
+        if (anArray == null || anArray.length <= 1) {
+            // Base case: array is empty or has only one element
+            return;
+        }
+
+        oddBeforeEvenHelper(anArray, 0, anArray.length - 1);
+        printArray(anArray, 0);
+    }
+
+    private static void oddBeforeEvenHelper(int[] anArray, int evenValues, int oddValues) {
+        if (evenValues < oddValues) {
+            if ((anArray[evenValues] & 1) == 0 && (anArray[oddValues] & 1) != 0) {
+                // Swap elements at evenValues and oddValues if evenValues is even and oddValues is odd
+                swap(anArray, evenValues, oddValues);
+            }
+
+            // Recursively move evenValues and oddValues towards each other
+            oddBeforeEvenHelper(anArray, evenValues + 1, oddValues);
+            oddBeforeEvenHelper(anArray, evenValues, oddValues - 1);
+        }
+    }
+
+    private static void swap(int[] anArray, int i, int j) {
+        int temp = anArray[i];
+        anArray[i] = anArray[j];
+        anArray[j] = temp;
+    }
+
+    private static void printArray(int[] anArray, int index) {
+        if (index < anArray.length) {
+            System.out.print(anArray[index] + " ");
+            printArray(anArray, index + 1);
+        }
+    }
+        
+    
+    
 }
